@@ -63,6 +63,30 @@ DB_CONFIG = {
             "verify_cert": False,  # 不验证服务器证书
             "check_hostname": False  # 不验证主机名（Azure MySQL 建议加这个）
         }  # 关键：开启SSL加密，无CA时跳过证书验证
+    },
+    "uat_fxa_bank": {  # 汇入行数据库
+        "host": "remisandbox.mysql.database.azure.com",
+        "user": "dev",
+        "password": "Bhy.980226275",
+        "db": "remi-fx-a",
+        "port": 3306,
+        "charset": "utf8mb4",
+        "ssl" : {
+            "verify_cert": False,  # 不验证服务器证书
+            "check_hostname": False  # 不验证主机名（Azure MySQL 建议加这个）
+        }  # 关键：开启SSL加密，无CA时跳过证书验证
+    },
+    "uat_fxb_bank": {  # 汇入行数据库
+        "host": "remisandbox.mysql.database.azure.com",
+        "user": "dev",
+        "password": "Bhy.980226275",
+        "db": "remi-fx-b",
+        "port": 3306,
+        "charset": "utf8mb4",
+        "ssl" : {
+            "verify_cert": False,  # 不验证服务器证书
+            "check_hostname": False  # 不验证主机名（Azure MySQL 建议加这个）
+        }  # 关键：开启SSL加密，无CA时跳过证书验证
     }
 }
 
