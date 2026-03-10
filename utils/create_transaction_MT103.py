@@ -27,6 +27,9 @@ def generate_uuid() -> str:
 # -------------------------- 固定参数定义 --------------------------
 SIT_OUT_BANK_HOST = "http://remi-prep-service-out-sit.remitech.ai"
 SIT_IN_BANK_HOST = "http://remi-prep-service-in-sit.remitech.ai"
+SIT_FXA_BANK_HOST = "http://remi-prep-service-fxa-sit.remitech.ai"
+SIT_FXB_BANK_HOST = "http://remi-prep-service-fxb-sit.remitech.ai"
+SIT_BISON_BANK_HOST = "http://remi-prep-service-bison-sit.remitech.ai"
 UAT_OUT_BANK_HOST = "http://20.212.242.52:30084"
 UAT_IN_BANK_HOST = "http://20.212.242.52:30083"
 UAT_FXA_BANK_HOST = "http://20.212.242.52:30085"
@@ -143,10 +146,16 @@ def send_103_transfer():
 def inward_result_update(bank_req_id , result , reject_reason="",bank_role = "sit_receive_bank"):  
     if bank_role == "sit_receive_bank":
         api_url = SIT_IN_BANK_HOST + INWARD_RESULT_UPDATE_URI
-    elif bank_role == "uat_receive_bank":
-        api_url = UAT_IN_BANK_HOST + INWARD_RESULT_UPDATE_URI
     elif bank_role == "sit_remit_bank":
         api_url = SIT_OUT_BANK_HOST + INWARD_RESULT_UPDATE_URI
+    elif bank_role == "sit_fxa_bank":
+        api_url = SIT_FXA_BANK_HOST + INWARD_RESULT_UPDATE_URI
+    elif bank_role == "sit_fxb_bank":
+        api_url = SIT_FXB_BANK_HOST + INWARD_RESULT_UPDATE_URI
+    elif bank_role =="sit_bison_bank":
+        api_url = SIT_BISON_BANK_HOST + INWARD_RESULT_UPDATE_URI
+    elif bank_role == "uat_receive_bank":
+        api_url = UAT_IN_BANK_HOST + INWARD_RESULT_UPDATE_URI
     elif  bank_role == "uat_remit_bank":
         api_url = UAT_OUT_BANK_HOST + INWARD_RESULT_UPDATE_URI
     elif  bank_role == "uat_fxa_bank":

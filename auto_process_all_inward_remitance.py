@@ -11,7 +11,7 @@ def auto_process_all_inward_remitance(db_type):
         # #拒绝汇入
         # respone = inward_result_update(inward_bank_req_id,1,"high risk",db_type)
         print(f'流水号：{inward_bank_req_id}，处理结果：{respone}')
-    print("批量拒绝跨行汇入 - - 完成")
+    print("批量处理跨行汇入 - - 完成")
         
 if __name__=="__main__":
-    print(auto_process_all_inward_remitance("uat_fxb_bank"))
+    print(auto_process_all_inward_remitance("sit_bison_bank"))

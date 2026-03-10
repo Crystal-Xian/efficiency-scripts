@@ -28,6 +28,42 @@ DB_CONFIG = {
             "check_hostname": False  # 不验证主机名（Azure MySQL 建议加这个）
         }  # 关键：开启SSL加密，无CA时跳过证书验证
     },
+    "sit_fxa_bank": {  # 汇入行数据库
+        "host": "devandsitmysql.mysql.database.azure.com",
+        "user": "dev",
+        "password": "Bhy.980226275",
+        "db": "remi-fxa",
+        "port": 3306,
+        "charset": "utf8mb4",
+        "ssl" : {
+            "verify_cert": False,  # 不验证服务器证书
+            "check_hostname": False  # 不验证主机名（Azure MySQL 建议加这个）
+        }  # 关键：开启SSL加密，无CA时跳过证书验证
+    },
+    "sit_fxb_bank": {  # 汇入行数据库
+        "host": "devandsitmysql.mysql.database.azure.com",
+        "user": "dev",
+        "password": "Bhy.980226275",
+        "db": "remi-fxb",
+        "port": 3306,
+        "charset": "utf8mb4",
+        "ssl" : {
+            "verify_cert": False,  # 不验证服务器证书
+            "check_hostname": False  # 不验证主机名（Azure MySQL 建议加这个）
+        }  # 关键：开启SSL加密，无CA时跳过证书验证
+    },
+    "sit_bison_bank": {  # 汇入行数据库
+        "host": "devandsitmysql.mysql.database.azure.com",
+        "user": "dev",
+        "password": "Bhy.980226275",
+        "db": "remi-bison",
+        "port": 3306,
+        "charset": "utf8mb4",
+        "ssl" : {
+            "verify_cert": False,  # 不验证服务器证书
+            "check_hostname": False  # 不验证主机名（Azure MySQL 建议加这个）
+        }  # 关键：开启SSL加密，无CA时跳过证书验证
+    },
     "sit_admin" : {  # 汇入行数据库
         "host": "devandsitmysql.mysql.database.azure.com",
         "user": "dev",
@@ -194,7 +230,7 @@ def get_all_inward_processing_order(db_type):
 
 if __name__ == "__main__":
     # print(get_transaction_record("receive_bank", "MT10320251215-152424-0559055" , ""))
-    all_result = get_all_inward_processing_order("uat_receive_bank")
+    all_result = get_all_inward_processing_order("sit_bison_bank")
 
     for order in all_result:
         print(f"order:{order}")
