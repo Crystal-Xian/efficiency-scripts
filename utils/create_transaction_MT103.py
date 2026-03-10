@@ -29,6 +29,8 @@ SIT_OUT_BANK_HOST = "http://remi-prep-service-out-sit.remitech.ai"
 SIT_IN_BANK_HOST = "http://remi-prep-service-in-sit.remitech.ai"
 UAT_OUT_BANK_HOST = "http://20.212.242.52:30084"
 UAT_IN_BANK_HOST = "http://20.212.242.52:30083"
+UAT_FXA_BANK_HOST = "http://20.212.242.52:30085"
+UAT_FXB_BANK_HOST = "http://20.212.242.52:30086"
 SEND_MESSAGE_URI = "/v1/api/prep/sendMessage"
 INWARD_RESULT_UPDATE_URI = "/v1/api/prep/inwardResultUpdate"
 ORG_OUT_REMI = "AGPBLALAXXX"  # org_out_remi固定值
@@ -145,8 +147,14 @@ def inward_result_update(bank_req_id , result , reject_reason="",bank_role = "si
         api_url = UAT_IN_BANK_HOST + INWARD_RESULT_UPDATE_URI
     elif bank_role == "sit_remit_bank":
         api_url = SIT_OUT_BANK_HOST + INWARD_RESULT_UPDATE_URI
-    else:
+    elif  bank_role == "uat_remit_bank":
         api_url = UAT_OUT_BANK_HOST + INWARD_RESULT_UPDATE_URI
+    elif  bank_role == "uat_fxa_bank":
+        api_url = UAT_FXA_BANK_HOST + INWARD_RESULT_UPDATE_URI
+    elif  bank_role == "uat_fxb_bank":
+        api_url = UAT_FXB_BANK_HOST + INWARD_RESULT_UPDATE_URI
+    else:
+        pass
     headers = {
         "Content-Type": "application/json",  # 接口通常为JSON格式
         # 如需其他请求头（如token、Authorization），可在此添加
