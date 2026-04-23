@@ -398,15 +398,29 @@ def _preflight_check(db_key: str, mfr: Optional[MultiFlowReportWriter] = None) -
     if not guard_on:
         return True
     try:
-        latest = get_latest_read_record(db_key)
+        start_time = time.time()
+        timeout_s = 60
+        latest = None
+        status = ""
+        while time.time() - start_time < timeout_s:
+            latest = get_latest_read_record(db_key)
+            if not latest:
+                break
+            status = str(latest.get("status", "")).upper()
+            if status in TERMINAL_READ_STATUSES:
+                break
+            print(f"[PRECHECK] read_record 最后一条状态={status}，等待其进入终态...")
+            time.sleep(5)
+
         if mfr and hasattr(mfr, '_reports'):
             for r in mfr._reports.values():
                 if r.request_context.get("direction") == "FXA":
                     r.request_context["latest_read_record_before_send"] = latest
+
         if not latest:
-            print(f"[PRECHECK] read_record 无数据，门禁拦截")
-            return False
-        status = str(latest.get("status", "")).upper()
+            print(f"[PRECHECK] read_record 无数据，继续执行")
+            return True
+            
         print(f"[PRECHECK] read_record 最后一条状态={status}")
         if status in BLOCKING_READ_STATUSES:
             print(f"[PRECHECK] 状态为 {status}，门禁拦截")
@@ -425,6 +439,8 @@ def _run_flow_fxa(flow_name: str, msg_type: str, defn: dict,
                    mfr: MultiFlowReportWriter, timeout: int) -> dict:
     sender, receiver = defn["bics"]
     db_key = defn["db_key"]
+    agent_url_name = defn.get("agent_url", "AGENT_URL")
+    agent_url = globals().get(agent_url_name)
     prefix = _MSG_PREFIX.get(msg_type, "MX_")
     instr_id = f"{prefix}{time.strftime('%Y%m%d-%H%M%S')}-{random.randint(10000, 99999)}"
     uetr = str(uuid.uuid4())
@@ -1161,6 +1177,8 @@ def main():
                 for mt in msg_types:
                     try:
                         if flow_name == "FXA":
+                            if not _preflight_check(defn["db_key"], mfr):
+                                continue
                             _run_flow_fxa(flow_name, mt, defn, mfr, args.timeout)
                         elif flow_name == "FXB":
                             if args.bank_req_id:
@@ -1170,8 +1188,12 @@ def main():
                             else:
                                 print(f"⚠️ FXB 需要 --bank-req-id，跳过")
                         elif flow_name == "out":
+                            if not _preflight_check(defn["db_key"], mfr):
+                                continue
                             _run_flow_out(flow_name, mt, defn, mfr, args.timeout)
                         elif flow_name == "bison":
+                            if not _preflight_check(defn["db_key"], mfr):
+                                continue
                             _run_flow_bison(flow_name, mt, defn, mfr, args.timeout)
                         elif flow_name == "OUT_REDEEM":
                             if not args.amount:
@@ -1232,10 +1254,16 @@ def main():
                                     timeout=args.timeout,
                                 )
                         elif flow_name in ("FXA_IN", "FXA_OUT", "FXA_FXC", "FXA_FXD"):
+                            if not _preflight_check(defn["db_key"], mfr):
+                                continue
                             _run_flow_fxa_send(flow_name, defn, mfr, args.timeout)
                         elif flow_name in ("FXB_OUT", "FXB_IN", "FXB_FXC", "FXB_FXD"):
+                            if not _preflight_check(defn["db_key"], mfr):
+                                continue
                             _run_flow_fxb_send(flow_name, defn, mfr, args.timeout)
                         elif flow_name in ("IN_SEND", "FXC_SEND", "FXD_SEND"):
+                            if not _preflight_check(defn["db_key"], mfr):
+                                continue
                             _run_flow_core_send(flow_name, defn, mfr, args.timeout)
                         else:
                             print(f"⚠️ {flow_name} 暂未实现验证器，跳过（DB查询待接入）")
