@@ -584,18 +584,19 @@ class MultiFlowReportWriter:
             step_rows = ""
             for s in r.step_results:
                 sv = str(s.get("status","")).upper()
-                dot_c = {"PASS":"#22c55e","FAIL":"#ef4444","ERROR":"#f97316","TIMEOUT":"#eab308"}.get(sv,"#6b7280")
-                row_bg = {"PASS":"rgba(34,197,94,.06)","FAIL":"rgba(239,68,68,.07)","ERROR":"rgba(249,115,22,.07)","TIMEOUT":"rgba(234,179,8,.06)"}.get(sv,"transparent")
-                raw = fc(json.dumps(s.get("raw_data",{}), ensure_ascii=False, default=str))
+                dot_c = {"PASS":"#10b981","FAIL":"#ef4444","ERROR":"#f97316","TIMEOUT":"#f59e0b"}.get(sv,"#64748b")
+                row_bg = {"PASS":"rgba(16,185,129,.05)","FAIL":"rgba(239,68,68,.05)","ERROR":"rgba(249,115,22,.05)","TIMEOUT":"rgba(245,158,11,.05)"}.get(sv,"transparent")
+                raw_obj = s.get("raw_data", {})
+                raw = fc(json.dumps(raw_obj, ensure_ascii=False, indent=2, default=str) if raw_obj else "{}")
                 step_rows += (
                     "<tr style='background:" + row_bg + "'>"
-                      "<td style='display:flex;align-items:center;gap:7px;padding:6px 8px;white-space:nowrap'>"
-                        "<span style='width:7px;height:7px;border-radius:50%;background:" + dot_c + ";flex-shrink:0;display:inline-block'></span>"
+                      "<td style='display:flex;align-items:center;gap:7px;padding:8px 10px;white-space:nowrap'>"
+                        "<span style='width:8px;height:8px;border-radius:50%;background:" + dot_c + ";flex-shrink:0;display:inline-block'></span>"
                         + str(s.get("step","")) + "</td>"
-                      "<td style='padding:6px 8px;font-weight:600'>" + fc(str(s.get("name",""))) + "</td>"
-                      "<td style='padding:6px 8px;font-weight:800;font-size:11px;color:" + dot_c + "'>" + sv + "</td>"
-                      "<td style='padding:6px 8px;color:var(--tx2);max-width:260px'>" + fc(str(s.get("detail",""))[:150]) + "</td>"
-                      "<td style='padding:6px 8px'><details><summary style='cursor:pointer;color:var(--info);font-size:11px'>数据</summary><pre style='font-size:10px;white-space:pre-wrap;word-break:break-all;background:var(--bg);padding:6px;border-radius:4px'>" + raw[:2000] + "</pre></details></td>"
+                      "<td style='padding:8px 10px;font-weight:600;min-width:140px'>" + fc(str(s.get("name",""))) + "</td>"
+                      "<td style='padding:8px 10px;font-weight:800;font-size:11px;color:" + dot_c + "'>" + sv + "</td>"
+                      "<td style='padding:8px 10px;color:var(--tx2);max-width:300px'>" + fc(str(s.get("detail",""))) + "</td>"
+                      "<td style='padding:8px 10px;width:35%'><details><summary style='cursor:pointer;color:var(--info);font-size:11px;font-weight:600'>原始数据</summary><pre style='font-family:ui-monospace,monospace;font-size:11px;white-space:pre-wrap;word-break:break-all;background:var(--s3);padding:8px;border-radius:4px;margin-top:4px'>" + raw + "</pre></details></td>"
                     "</tr>"
                 )
 
@@ -605,16 +606,23 @@ class MultiFlowReportWriter:
             )
             http_rows = ""
             for h in r.http_calls:
-                req = fc(json.dumps(h.get("request_body",""), ensure_ascii=False, default=str))
-                resp = fc(str(h.get("response_body","")))
+                req_obj = h.get("request_body","")
+                req = fc(json.dumps(req_obj, ensure_ascii=False, indent=2, default=str) if req_obj else "")
+                resp_obj = h.get("response_body","")
+                try:
+                    resp_parsed = json.loads(resp_obj) if isinstance(resp_obj, str) else resp_obj
+                    resp = fc(json.dumps(resp_parsed, ensure_ascii=False, indent=2, default=str) if resp_parsed else str(resp_obj))
+                except Exception:
+                    resp = fc(str(resp_obj))
+
                 http_rows += (
                     "<tr>"
-                      "<td style='padding:5px 8px;color:var(--info);font-weight:700;font-size:11px'>" + fc(str(h.get("method",""))) + "</td>"
-                      "<td style='padding:5px 8px;max-width:160px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap' title='" + fc(str(h.get("url",""))) + "'>" + fc(str(h.get("url",""))) + "</td>"
-                      "<td style='padding:5px 8px;font-weight:700'>" + fc(str(h.get("response_status",""))) + "</td>"
-                      "<td style='padding:5px 8px;color:var(--tx2);font-size:11px'>" + fc(str(h.get("timestamp",""))) + "</td>"
-                      "<td style='padding:5px 8px'><details><summary style='cursor:pointer;color:var(--info);font-size:11px'>请求</summary><pre style='font-size:10px;white-space:pre-wrap;word-break:break-all;background:var(--bg);padding:6px;border-radius:4px'>" + req + "</pre></details></td>"
-                      "<td style='padding:5px 8px'><details><summary style='cursor:pointer;color:var(--info);font-size:11px'>响应</summary><pre style='font-size:10px;white-space:pre-wrap;word-break:break-all;background:var(--bg);padding:6px;border-radius:4px'>" + resp + "</pre></details></td>"
+                      "<td style='padding:5px 8px;color:var(--info);font-weight:700;font-size:11px;white-space:nowrap'>" + fc(str(h.get("method",""))) + "</td>"
+                      "<td style='padding:5px 8px;max-width:200px;word-wrap:break-word;word-break:break-all' title='" + fc(str(h.get("url",""))) + "'>" + fc(str(h.get("url",""))) + "</td>"
+                      "<td style='padding:5px 8px;font-weight:700;white-space:nowrap'>" + fc(str(h.get("response_status",""))) + "</td>"
+                      "<td style='padding:5px 8px;color:var(--tx2);font-size:11px;white-space:nowrap'>" + fc(str(h.get("timestamp",""))) + "</td>"
+                      "<td style='padding:5px 8px;width:30%'><details><summary style='cursor:pointer;color:var(--info);font-size:11px'>请求</summary><pre style='font-family:ui-monospace,monospace;font-size:11px;white-space:pre-wrap;word-break:break-all;background:var(--s3);padding:8px;border-radius:4px;margin-top:4px'>" + req + "</pre></details></td>"
+                      "<td style='padding:5px 8px;width:30%'><details><summary style='cursor:pointer;color:var(--info);font-size:11px'>响应</summary><pre style='font-family:ui-monospace,monospace;font-size:11px;white-space:pre-wrap;word-break:break-all;background:var(--s3);padding:8px;border-radius:4px;margin-top:4px'>" + resp + "</pre></details></td>"
                     "</tr>"
                 )
 
@@ -649,7 +657,7 @@ class MultiFlowReportWriter:
             for p in r.poll_attempts:
                 poll_rows += (
                     "<tr class='" + ("poll-hit" if p.get("found") else "poll-miss") + "'>"
-                      "<td style='padding:5px 8px;color:var(--tx2);font-size:11px'>" + fc(str(p.get("timestamp",""))) + "</td>"
+                      "<td style='padding:5px 8px;color:var(--tx2);font-size:11px;white-space:nowrap'>" + fc(str(p.get("timestamp",""))) + "</td>"
                       "<td style='padding:5px 8px;font-weight:600'>" + fc(str(p.get("step_name",""))) + "</td>"
                       "<td style='padding:5px 8px;text-align:center'>" + str(p.get("attempt","")) + "</td>"
                       "<td style='padding:5px 8px;text-align:center;font-size:14px'>" + ("&#x2705;" if p.get("found") else "&#x274C;") + "</td>"
@@ -657,16 +665,14 @@ class MultiFlowReportWriter:
                     "</tr>"
                 )
 
-            log_txt = fc(r.console_logs[:8000])
-            if len(r.console_logs) > 8000:
-                log_txt += "\n... (truncated at 8000 chars)"
-
+            log_txt = fc(r.console_logs)
+            
             ctx_sec = ("<div class='mf-sec'><div class='mf-sec-title'>上下文</div><div class='mf-ctx'>" + (ctx_items or "<span style='color:var(--tx3);font-size:12px'>无</span>") + "</div></div>")
             http_s = ("<div class='mf-sec'><div class='mf-sec-title'>HTTP <span class='mf-badge'>" + str(len(r.http_calls)) + "</span></div><div class='mf-tbl-wrap'><table class='mf-tbl'><thead><tr><th>Method</th><th>URL</th><th>Status</th><th>时间</th><th>请求</th><th>响应</th></tr></thead><tbody>" + (http_rows or "<tr><td colspan='6' style='color:var(--tx3);font-size:12px'>无</td></tr>") + "</tbody></table></div></div>") if r.http_calls else ""
             db_s = ("<div class='mf-sec'><div class='mf-sec-title'>DB <span class='mf-badge'>" + str(len(r.db_queries)) + "</span></div><div class='mf-tbl-wrap'><table class='mf-tbl'><thead><tr><th>DB</th><th>Action</th><th>命中</th><th>Status</th><th>SQL详情</th></tr></thead><tbody>" + (db_rows or "<tr><td colspan='5' style='color:var(--tx3);font-size:12px'>无</td></tr>") + "</tbody></table></div></div>") if r.db_queries else ""
             es_s = ("<div class='mf-sec'><div class='mf-sec-title'>ES <span class='mf-badge'>" + str(len(r.es_queries)) + "</span></div><div class='mf-tbl-wrap'><table class='mf-tbl'><thead><tr><th>Source</th><th>Order ID</th><th>Keyword</th><th>命中</th><th>详情</th></tr></thead><tbody>" + (es_rows or "<tr><td colspan='5' style='color:var(--tx3);font-size:12px'>无</td></tr>") + "</tbody></table></div></div>") if r.es_queries else ""
             poll_s = ("<div class='mf-sec'><div class='mf-sec-title'>轮询日志 <span class='mf-badge'>" + str(len(r.poll_attempts)) + "</span></div><div class='mf-tbl-wrap'><table class='mf-tbl'><thead><tr><th>时间</th><th>检查项</th><th>轮次</th><th>命中</th><th>摘要</th></tr></thead><tbody>" + (poll_rows or "<tr><td colspan='5' style='color:var(--tx3);font-size:12px'>无</td></tr>") + "</tbody></table></div></div>") if r.poll_attempts else ""
-            log_s = ("<div class='mf-sec'><div class='mf-sec-title'>执行日志</div><pre style='font-size:10px;white-space:pre-wrap;word-break:break-all;background:var(--bg);padding:10px;border-radius:4px;max-height:300px;overflow-y:auto;color:var(--tx2)'>" + log_txt + "</pre></div>") if r.console_logs else ""
+            log_s = ("<div class='mf-sec'><div class='mf-sec-title'>执行日志</div><pre style='font-family:ui-monospace,monospace;font-size:11px;white-space:pre-wrap;word-break:break-all;background:var(--s3);padding:12px;border-radius:6px;max-height:400px;overflow-y:auto;color:var(--tx2)'>" + log_txt + "</pre></div>") if r.console_logs else ""
 
             flow_cards += (
                 "\n<div class='mf-flow' id='flow-" + fc(name) + "' style='border-color:" + cfg2["border"] + "'>"
