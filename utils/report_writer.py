@@ -356,27 +356,27 @@ class UnifiedReportWriter:
               "<title>" + fc(self.case_name) + " — " + cfg["label"] + "</title>"
               "<style>"
                 "*{box-sizing:border-box;margin:0;padding:0}"
-                ":root{--bg:#0f1117;--s:#161a27;--s2:#1e2333;--s3:#252b3d;--bd:#2e3555;--tx:#d8dced;--tx2:#8890a8;--tx3:#4a4d6a;--pass:#22c55e;--fail:#ef4444;--warn:#eab308;--info:#6366f1;--pass-bg:rgba(34,197,94,.1);--fail-bg:rgba(239,68,68,.1);--warn-bg:rgba(234,179,8,.1);--font:ui-monospace,'Cascadia Code','Fira Code',Menlo,monospace}"
-                "body{font-family:var(--font);background:var(--bg);color:var(--tx);font-size:13px;line-height:1.6}"
+                ":root{--bg:#f4f6f8;--s:#ffffff;--s2:#f8f9fa;--s3:#e9ecef;--bd:#e2e8f0;--tx:#1e293b;--tx2:#475569;--tx3:#64748b;--pass:#10b981;--fail:#ef4444;--warn:#f59e0b;--info:#3b82f6;--pass-bg:rgba(16,185,129,.1);--fail-bg:rgba(239,68,68,.1);--warn-bg:rgba(245,158,11,.1);--font:system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif,'Apple Color Emoji','Segoe UI Emoji','Segoe UI Symbol'}"
+                "body{font-family:var(--font);background:var(--bg);color:var(--tx);font-size:14px;line-height:1.6}"
                 "a{color:var(--info)}"
-                ".case-hdr{background:linear-gradient(135deg,#0d1020,#141728 60%,#181b2e);border-bottom:1px solid var(--bd);padding:18px 24px}"
-                ".case-hdr h1{font-size:15px;font-weight:700;color:#fff;margin-bottom:4px}"
-                ".case-meta{font-size:11px;color:var(--tx2)}"
+                ".case-hdr{background:linear-gradient(135deg,#ffffff,#f8f9fa);border-bottom:1px solid var(--bd);padding:24px 32px;box-shadow:0 1px 3px rgba(0,0,0,0.05)}"
+                ".case-hdr h1{font-size:18px;font-weight:700;color:var(--tx);margin-bottom:6px}"
+                ".case-meta{font-size:13px;color:var(--tx2)}"
                 ".case-meta span{margin-right:14px}"
                 ".alert-banner{margin:16px 24px 0;border:1px solid var(--bd);border-radius:10px;padding:14px 18px;animation:fadeIn .3s ease}"
                 "@keyframes fadeIn{from{opacity:0;transform:translateY(-4px)}}"
-                ".alert-title{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:700;color:#fff;margin-bottom:10px}"
+                ".alert-title{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:700;color:var(--tx);margin-bottom:10px}"
                 ".alert-dot{width:8px;height:8px;border-radius:50%;display:inline-block}"
                 ".fail-quick-list{list-style:none;display:flex;flex-direction:column;gap:5px}"
-                ".fail-quick-list li{display:flex;align-items:baseline;gap:10px;background:rgba(0,0,0,.2);padding:6px 10px;border-radius:6px;font-size:12px}"
-                ".fail-step{background:rgba(239,68,68,.2);color:#ef4444;padding:1px 7px;border-radius:6px;font-size:11px;flex-shrink:0;font-weight:700}"
+                ".fail-quick-list li{display:flex;align-items:baseline;gap:10px;background:rgba(0,0,0,.05);padding:6px 10px;border-radius:6px;font-size:12px}"
+                ".fail-step{background:rgba(239,68,68,.15);color:#ef4444;padding:1px 7px;border-radius:6px;font-size:11px;flex-shrink:0;font-weight:700}"
                 ".fail-name{color:var(--tx);font-weight:600;min-width:120px}"
                 ".fail-detail{color:var(--tx2)}"
                 ".stat-bar{display:flex;gap:8px;flex-wrap:wrap;margin:16px 24px 0;background:var(--s);border:1px solid var(--bd);border-radius:10px;padding:12px 16px}"
                 ".sitem{background:var(--s2);border:1px solid var(--bd);border-radius:8px;padding:8px 14px;text-align:center;min-width:60px;flex:1}"
                 ".sitem-status{border-color:" + st_border + "}"
                 ".slabel{display:block;font-size:9px;color:var(--tx3);text-transform:uppercase;letter-spacing:.8px}"
-                ".sval{display:block;font-size:18px;font-weight:800;color:#fff;margin-top:2px}"
+                ".sval{display:block;font-size:18px;font-weight:800;color:var(--tx);margin-top:2px}"
                 ".main{padding:16px 24px 32px}"
                 ".section{background:var(--s);border:1px solid var(--bd);border-radius:10px;margin-bottom:12px;overflow:hidden}"
                 ".sec-title{padding:11px 16px;font-size:11px;color:var(--tx2);text-transform:uppercase;letter-spacing:.8px;cursor:pointer;user-select:none;display:flex;align-items:center;gap:8px;background:var(--s2);border-bottom:1px solid var(--bd);transition:background .15s}"
@@ -384,10 +384,10 @@ class UnifiedReportWriter:
                 ".sec-toggle{margin-left:auto;font-size:10px;transition:transform .2s}"
                 ".sec-badge{background:var(--s3);color:var(--tx);padding:1px 8px;border-radius:8px;font-size:10px}"
                 ".dtable{width:100%;border-collapse:collapse;font-size:12px;table-layout:auto}"
-                ".dtable th{background:var(--s2);padding:8px 10px;text-align:left;font-size:10px;color:var(--tx2);text-transform:uppercase;letter-spacing:.7px;border-bottom:1px solid var(--bd);white-space:nowrap}"
-                ".dtable td{padding:7px 10px;border-bottom:1px solid rgba(46,53,85,.5);vertical-align:top;word-break:break-word}"
+                ".dtable th{background:var(--s2);padding:8px 10px;text-align:left;font-size:10px;color:var(--tx3);text-transform:uppercase;letter-spacing:.7px;border-bottom:1px solid var(--bd);white-space:nowrap}"
+                ".dtable td{padding:7px 10px;border-bottom:1px solid var(--bd);vertical-align:top;word-break:break-word}"
                 ".dtable tr:last-child td{border-bottom:none}"
-                ".dtable tr:hover{background:rgba(255,255,255,.02)}"
+                ".dtable tr:hover{background:rgba(0,0,0,.02)}"
                 ".empty{color:var(--tx3);font-style:italic}"
                 ".ck{color:var(--tx3);font-size:11px;min-width:90px;white-space:nowrap}"
                 "pre{white-space:pre-wrap;word-break:break-all;font-size:11px;background:var(--bg);padding:8px;border-radius:6px;margin:2px 0}"
@@ -603,42 +603,74 @@ class MultiFlowReportWriter:
                 "<div class='ci'><span class='cik'>" + fc(str(k)) + "</span><span class='civ'>" + fc(str(v)[:80]) + "</span></div>"
                 for k, v in r.request_context.items()
             )
-            http_rows = "".join(
-                "<tr>"
-                  "<td style='padding:5px 8px;color:var(--info);font-weight:700;font-size:11px'>" + fc(str(h.get("method",""))) + "</td>"
-                  "<td style='padding:5px 8px;max-width:160px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap' title='" + fc(str(h.get("url",""))) + "'>" + fc(str(h.get("url",""))) + "</td>"
-                  "<td style='padding:5px 8px;font-weight:700'>" + fc(str(h.get("response_status",""))) + "</td>"
-                  "<td style='padding:5px 8px;color:var(--tx2);font-size:11px'>" + fc(str(h.get("timestamp",""))) + "</td>"
-                "</tr>"
-                for h in r.http_calls
-            )
-            db_rows = "".join(
-                "<tr class='" + ("db-hit" if d.get("hit") else "db-miss") + "'>"
-                  "<td style='padding:5px 8px;color:var(--info);font-size:11px'>" + fc(str(d.get("db_type",""))) + "</td>"
-                  "<td style='padding:5px 8px'>" + fc(str(d.get("action",""))) + "</td>"
-                  "<td style='padding:5px 8px;text-align:center;font-size:14px'>" + ("&#x2705;" if d.get("hit") else "&#x274C;") + "</td>"
-                  "<td style='padding:5px 8px;color:var(--tx2);font-size:11px'>" + fc(str(d.get("status_flow",""))) + "</td>"
-                "</tr>"
-                for d in r.db_queries
-            )
-            es_rows = "".join(
-                "<tr>"
-                  "<td style='padding:5px 8px;color:var(--tx2);font-size:11px'>" + fc(str(e.get("source",""))) + "</td>"
-                  "<td style='padding:5px 8px'><code style='font-size:11px'>" + fc(str(e.get("order_id",""))) + "</code></td>"
-                  "<td style='padding:5px 8px'>" + fc(str(e.get("keyword",""))) + "</td>"
-                  "<td style='padding:5px 8px;text-align:center'>" + str(e.get("hit_count",0)) + "</td>"
-                "</tr>"
-                for e in r.es_queries
-            )
+            http_rows = ""
+            for h in r.http_calls:
+                req = fc(json.dumps(h.get("request_body",""), ensure_ascii=False, default=str))
+                resp = fc(str(h.get("response_body","")))
+                http_rows += (
+                    "<tr>"
+                      "<td style='padding:5px 8px;color:var(--info);font-weight:700;font-size:11px'>" + fc(str(h.get("method",""))) + "</td>"
+                      "<td style='padding:5px 8px;max-width:160px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap' title='" + fc(str(h.get("url",""))) + "'>" + fc(str(h.get("url",""))) + "</td>"
+                      "<td style='padding:5px 8px;font-weight:700'>" + fc(str(h.get("response_status",""))) + "</td>"
+                      "<td style='padding:5px 8px;color:var(--tx2);font-size:11px'>" + fc(str(h.get("timestamp",""))) + "</td>"
+                      "<td style='padding:5px 8px'><details><summary style='cursor:pointer;color:var(--info);font-size:11px'>请求</summary><pre style='font-size:10px;white-space:pre-wrap;word-break:break-all;background:var(--bg);padding:6px;border-radius:4px'>" + req + "</pre></details></td>"
+                      "<td style='padding:5px 8px'><details><summary style='cursor:pointer;color:var(--info);font-size:11px'>响应</summary><pre style='font-size:10px;white-space:pre-wrap;word-break:break-all;background:var(--bg);padding:6px;border-radius:4px'>" + resp + "</pre></details></td>"
+                    "</tr>"
+                )
+
+            db_rows = ""
+            for d in r.db_queries:
+                sql = fc(str(d.get("sql","")))
+                params = fc(str(d.get("params","")))
+                db_rows += (
+                    "<tr class='" + ("db-hit" if d.get("hit") else "db-miss") + "'>"
+                      "<td style='padding:5px 8px;color:var(--info);font-size:11px'>" + fc(str(d.get("db_type",""))) + "</td>"
+                      "<td style='padding:5px 8px'>" + fc(str(d.get("action",""))) + "</td>"
+                      "<td style='padding:5px 8px;text-align:center;font-size:14px'>" + ("&#x2705;" if d.get("hit") else "&#x274C;") + "</td>"
+                      "<td style='padding:5px 8px;color:var(--tx2);font-size:11px'>" + fc(str(d.get("status_flow",""))) + "</td>"
+                      "<td style='padding:5px 8px'><details><summary style='cursor:pointer;color:var(--info);font-size:11px'>SQL/Params</summary><pre style='font-size:10px;white-space:pre-wrap;word-break:break-all;background:var(--bg);padding:6px;border-radius:4px'>" + sql + "\nParams: " + params + "</pre></details></td>"
+                    "</tr>"
+                )
+
+            es_rows = ""
+            for e in r.es_queries:
+                es_detail = fc(str(e.get("detail","")))
+                es_rows += (
+                    "<tr>"
+                      "<td style='padding:5px 8px;color:var(--tx2);font-size:11px'>" + fc(str(e.get("source",""))) + "</td>"
+                      "<td style='padding:5px 8px'><code style='font-size:11px'>" + fc(str(e.get("order_id",""))) + "</code></td>"
+                      "<td style='padding:5px 8px'>" + fc(str(e.get("keyword",""))) + "</td>"
+                      "<td style='padding:5px 8px;text-align:center'>" + str(e.get("hit_count",0)) + "</td>"
+                      "<td style='padding:5px 8px'><details><summary style='cursor:pointer;color:var(--info);font-size:11px'>详情</summary><pre style='font-size:10px;white-space:pre-wrap;word-break:break-all;background:var(--bg);padding:6px;border-radius:4px'>" + es_detail + "</pre></details></td>"
+                    "</tr>"
+                )
+
+            poll_rows = ""
+            for p in r.poll_attempts:
+                poll_rows += (
+                    "<tr class='" + ("poll-hit" if p.get("found") else "poll-miss") + "'>"
+                      "<td style='padding:5px 8px;color:var(--tx2);font-size:11px'>" + fc(str(p.get("timestamp",""))) + "</td>"
+                      "<td style='padding:5px 8px;font-weight:600'>" + fc(str(p.get("step_name",""))) + "</td>"
+                      "<td style='padding:5px 8px;text-align:center'>" + str(p.get("attempt","")) + "</td>"
+                      "<td style='padding:5px 8px;text-align:center;font-size:14px'>" + ("&#x2705;" if p.get("found") else "&#x274C;") + "</td>"
+                      "<td style='padding:5px 8px;color:var(--tx2);font-size:11px'>" + fc(str(p.get("summary",""))) + "</td>"
+                    "</tr>"
+                )
+
+            log_txt = fc(r.console_logs[:8000])
+            if len(r.console_logs) > 8000:
+                log_txt += "\n... (truncated at 8000 chars)"
 
             ctx_sec = ("<div class='mf-sec'><div class='mf-sec-title'>上下文</div><div class='mf-ctx'>" + (ctx_items or "<span style='color:var(--tx3);font-size:12px'>无</span>") + "</div></div>")
-            http_s = ("<div class='mf-sec'><div class='mf-sec-title'>HTTP <span class='mf-badge'>" + str(len(r.http_calls)) + "</span></div><div class='mf-tbl-wrap'><table class='mf-tbl'><thead><tr><th>Method</th><th>URL</th><th>Status</th><th>时间</th></tr></thead><tbody>" + (http_rows or "<tr><td colspan='4' style='color:var(--tx3);font-size:12px'>无</td></tr>") + "</tbody></table></div></div>") if r.http_calls else ""
-            db_s = ("<div class='mf-sec'><div class='mf-sec-title'>DB <span class='mf-badge'>" + str(len(r.db_queries)) + "</span></div><div class='mf-tbl-wrap'><table class='mf-tbl'><thead><tr><th>DB</th><th>Action</th><th>命中</th><th>Status</th></tr></thead><tbody>" + (db_rows or "<tr><td colspan='4' style='color:var(--tx3);font-size:12px'>无</td></tr>") + "</tbody></table></div></div>") if r.db_queries else ""
-            es_s = ("<div class='mf-sec'><div class='mf-sec-title'>ES <span class='mf-badge'>" + str(len(r.es_queries)) + "</span></div><div class='mf-tbl-wrap'><table class='mf-tbl'><thead><tr><th>Source</th><th>Order ID</th><th>Keyword</th><th>命中</th></tr></thead><tbody>" + (es_rows or "<tr><td colspan='4' style='color:var(--tx3);font-size:12px'>无</td></tr>") + "</tbody></table></div></div>") if r.es_queries else ""
+            http_s = ("<div class='mf-sec'><div class='mf-sec-title'>HTTP <span class='mf-badge'>" + str(len(r.http_calls)) + "</span></div><div class='mf-tbl-wrap'><table class='mf-tbl'><thead><tr><th>Method</th><th>URL</th><th>Status</th><th>时间</th><th>请求</th><th>响应</th></tr></thead><tbody>" + (http_rows or "<tr><td colspan='6' style='color:var(--tx3);font-size:12px'>无</td></tr>") + "</tbody></table></div></div>") if r.http_calls else ""
+            db_s = ("<div class='mf-sec'><div class='mf-sec-title'>DB <span class='mf-badge'>" + str(len(r.db_queries)) + "</span></div><div class='mf-tbl-wrap'><table class='mf-tbl'><thead><tr><th>DB</th><th>Action</th><th>命中</th><th>Status</th><th>SQL详情</th></tr></thead><tbody>" + (db_rows or "<tr><td colspan='5' style='color:var(--tx3);font-size:12px'>无</td></tr>") + "</tbody></table></div></div>") if r.db_queries else ""
+            es_s = ("<div class='mf-sec'><div class='mf-sec-title'>ES <span class='mf-badge'>" + str(len(r.es_queries)) + "</span></div><div class='mf-tbl-wrap'><table class='mf-tbl'><thead><tr><th>Source</th><th>Order ID</th><th>Keyword</th><th>命中</th><th>详情</th></tr></thead><tbody>" + (es_rows or "<tr><td colspan='5' style='color:var(--tx3);font-size:12px'>无</td></tr>") + "</tbody></table></div></div>") if r.es_queries else ""
+            poll_s = ("<div class='mf-sec'><div class='mf-sec-title'>轮询日志 <span class='mf-badge'>" + str(len(r.poll_attempts)) + "</span></div><div class='mf-tbl-wrap'><table class='mf-tbl'><thead><tr><th>时间</th><th>检查项</th><th>轮次</th><th>命中</th><th>摘要</th></tr></thead><tbody>" + (poll_rows or "<tr><td colspan='5' style='color:var(--tx3);font-size:12px'>无</td></tr>") + "</tbody></table></div></div>") if r.poll_attempts else ""
+            log_s = ("<div class='mf-sec'><div class='mf-sec-title'>执行日志</div><pre style='font-size:10px;white-space:pre-wrap;word-break:break-all;background:var(--bg);padding:10px;border-radius:4px;max-height:300px;overflow-y:auto;color:var(--tx2)'>" + log_txt + "</pre></div>") if r.console_logs else ""
 
             flow_cards += (
                 "\n<div class='mf-flow' id='flow-" + fc(name) + "' style='border-color:" + cfg2["border"] + "'>"
-                  "\n  <div class='mf-flow-hd' style='background:rgba(0,0,0,.15);border-bottom:1px solid " + cfg2["border"] + "'>"
+                  "\n  <div class='mf-flow-hd' style='background:var(--s2);border-bottom:1px solid " + cfg2["border"] + "'>"
                     "\n    <div class='mf-flow-left'>"
                       "\n      <span style='font-size:18px'>" + icon + "</span>"
                       "\n      <span class='mf-fname'>" + fc(name) + "</span>"
@@ -652,7 +684,7 @@ class MultiFlowReportWriter:
                     "\n    </div>"
                   "\n  </div>"
                   "\n  <div class='mf-body'>"
-                    + ctx_sec + http_s + db_s + es_s +
+                    + ctx_sec + http_s + db_s + es_s + poll_s + log_s +
                     "\n    <div class='mf-sec'>"
                       "\n      <div class='mf-sec-title'>核查步骤 <span class='mf-badge'>" + str(sp) + "/" + str(st) + "</span></div>"
                       "\n      <div class='mf-tbl-wrap'><table class='mf-tbl'><thead><tr><th>#</th><th>名称</th><th>状态</th><th>详情</th><th>数据</th></tr></thead><tbody>" + (step_rows or "<tr><td colspan='5' style='color:var(--tx3);font-size:12px'>无</td></tr>") + "</tbody></table></div>"
@@ -670,15 +702,15 @@ class MultiFlowReportWriter:
               "<title>REMI 回归测试报告 — " + overall_cfg["label"] + "</title>"
               "<style>"
                 "*{box-sizing:border-box;margin:0;padding:0}"
-                ":root{--bg:#0f1117;--s:#161a27;--s2:#1e2333;--s3:#252b3d;--bd:#2e3555;--tx:#d8dced;--tx2:#8890a8;--tx3:#4a4d6a;--info:#6366f1;--font:ui-monospace,'Cascadia Code','Fira Code',Menlo,monospace}"
-                "body{font-family:var(--font);background:var(--bg);color:var(--tx);font-size:13px;line-height:1.6}"
-                ".hdr{background:linear-gradient(135deg,#0d1020,#141728 60%,#181b2e);border-bottom:1px solid var(--bd);padding:18px 24px}"
-                ".hdr h1{font-size:15px;font-weight:700;color:#fff;margin-bottom:4px}"
-                ".hdr-meta{font-size:11px;color:var(--tx2)}"
+                ":root{--bg:#f4f6f8;--s:#ffffff;--s2:#f8f9fa;--s3:#e9ecef;--bd:#e2e8f0;--tx:#1e293b;--tx2:#475569;--tx3:#64748b;--info:#3b82f6;--font:system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif,'Apple Color Emoji','Segoe UI Emoji','Segoe UI Symbol'}"
+                "body{font-family:var(--font);background:var(--bg);color:var(--tx);font-size:14px;line-height:1.6}"
+                ".hdr{background:linear-gradient(135deg,#ffffff,#f8f9fa);border-bottom:1px solid var(--bd);padding:24px 32px;box-shadow:0 1px 3px rgba(0,0,0,0.05)}"
+                ".hdr h1{font-size:18px;font-weight:700;color:var(--tx);margin-bottom:6px}"
+                ".hdr-meta{font-size:13px;color:var(--tx2)}"
                 ".hdr-meta span{margin-right:16px}"
                 ".mf-alert{margin:16px 24px 0;border:1px solid var(--bd);border-radius:10px;padding:14px 18px;animation:fadeIn .25s ease}"
                 "@keyframes fadeIn{from{opacity:0;transform:translateY(-4px)}}"
-                ".mf-alert-title{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:700;color:#fff;margin-bottom:10px}"
+                ".mf-alert-title{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:700;color:var(--tx);margin-bottom:10px}"
                 ".mf-alert-dot{width:8px;height:8px;border-radius:50%;display:inline-block}"
                 ".mf-fail-list{display:flex;flex-direction:column;gap:6px}"
                 ".mf-fail-item{padding:7px 12px;border-radius:7px;border:1px solid;display:flex;gap:12px;align-items:baseline}"
@@ -686,7 +718,7 @@ class MultiFlowReportWriter:
                 ".mf-fail-reason{font-size:11px;color:var(--tx2)}"
                 ".stat-row{display:flex;gap:8px;flex-wrap:wrap;margin:16px 24px 0;background:var(--s);border:1px solid var(--bd);border-radius:10px;padding:12px 16px}"
                 ".si{background:var(--s2);border:1px solid var(--bd);border-radius:8px;padding:10px 16px;text-align:center;min-width:70px;flex:1}"
-                ".siv{font-size:26px;font-weight:800;color:#fff;line-height:1}"
+                ".siv{font-size:26px;font-weight:800;color:var(--tx);line-height:1}"
                 ".sil{font-size:9px;color:var(--tx3);text-transform:uppercase;letter-spacing:.8px;margin-top:3px}"
                 ".nav{display:flex;gap:8px;flex-wrap:wrap;padding:0 24px;margin:16px 0 12px}"
                 ".pill{display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:20px;font-size:12px;font-weight:600;border:1px solid var(--bd);background:var(--s);cursor:pointer;font-family:var(--font);transition:all .15s}"
@@ -694,14 +726,14 @@ class MultiFlowReportWriter:
                 ".mf-flow{background:var(--s);border:1px solid var(--bd);border-radius:12px;margin-bottom:16px;overflow:hidden}"
                 ".mf-flow-hd{padding:12px 18px;display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}"
                 ".mf-flow-left{display:flex;align-items:center;gap:10px}"
-                ".mf-fname{font-size:15px;font-weight:700;color:#fff}"
+                ".mf-fname{font-size:15px;font-weight:700;color:var(--tx)}"
                 ".mf-pstatus{padding:3px 10px;border-radius:10px;font-size:11px;font-weight:700}"
                 ".mf-flow-right{display:flex;gap:14px;font-size:11px;color:var(--tx2)}"
                 ".mf-body{padding:0}"
-                ".mf-sec{padding:10px 18px;border-bottom:1px solid rgba(46,53,85,.5)}"
+                ".mf-sec{padding:10px 18px;border-bottom:1px solid var(--bd)}"
                 ".mf-sec:last-child{border-bottom:none}"
                 ".mf-sec-title{font-size:9px;color:var(--tx3);text-transform:uppercase;letter-spacing:.9px;margin-bottom:8px;display:flex;align-items:center;gap:7px}"
-                ".mf-badge{background:var(--s3,#252b3d);color:var(--tx);padding:1px 7px;border-radius:8px;font-size:9px}"
+                ".mf-badge{background:var(--s3);color:var(--tx);padding:1px 7px;border-radius:8px;font-size:9px}"
                 ".mf-ctx{display:flex;flex-wrap:wrap;gap:6px}"
                 ".ci{background:var(--s2);border:1px solid var(--bd);border-radius:6px;padding:4px 10px;display:flex;gap:8px;align-items:baseline;font-size:12px}"
                 ".cik{color:var(--tx3);font-size:10px;min-width:70px;flex-shrink:0}"
@@ -709,9 +741,9 @@ class MultiFlowReportWriter:
                 ".mf-tbl-wrap{overflow-x:auto;border-radius:7px;border:1px solid var(--bd)}"
                 ".mf-tbl{width:100%;border-collapse:collapse;font-size:12px;table-layout:auto}"
                 ".mf-tbl th{background:var(--s2);padding:7px 9px;text-align:left;font-size:9px;color:var(--tx3);text-transform:uppercase;letter-spacing:.7px;border-bottom:1px solid var(--bd);white-space:nowrap}"
-                ".mf-tbl td{padding:6px 9px;border-bottom:1px solid rgba(46,53,85,.4);vertical-align:top}"
+                ".mf-tbl td{padding:6px 9px;border-bottom:1px solid var(--bd);vertical-align:top}"
                 ".mf-tbl tr:last-child td{border-bottom:none}"
-                ".mf-tbl tr:hover{background:rgba(255,255,255,.02)}"
+                ".mf-tbl tr:hover{background:rgba(0,0,0,.02)}"
                 ".db-miss td{opacity:.5}"
               "</style>"
             "</head>"
